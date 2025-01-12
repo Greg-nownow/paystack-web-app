@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="menu" style="height: 620px;">
+  <div class="menu" style="height: 650px;">
     <div class="button-group">
       <button class="button" [class.active]="(activeTab$ | async) === 'card'" (click)="navigateToCard()">Card</button>
     </div>
@@ -7,66 +7,68 @@
       <button class="button" [class.active]="(activeTab$ | async) === 'transfer'" (click)="navigateToTransfer()">Transfer</button>
     </div>
   </div>
-  <div class="card" style="width: 600px; height: 620px;">
-    <div class="card__header">
-      <img src="assets/icons/contec-logo.png" style="width: 40px;" class="logo" />
-      <h1>Payment information</h1>
+  
+  <div class="card" style="width: 600px; height: 650px;">
+    <div class="card__header" style="margin-bottom: 30px">
+      <img src="assets/icons/contec-logo.png" style="width: 30px;" class="logo" />
+      <h1 style="font-size: 1rem;">Payment information</h1>
     </div>
+
     <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <div class="row-group">
-          <label for="payment-reference" style="text-align: center; height: 40px; margin-top: 10px; width: 40%">Transaction Reference : </label>
-          <input style="width: 60%;" type="text" id="payment-reference" aria-label="payment-reference" formControlName="paymentReference"  placeholder="45417280" readonly />
+      <div class="form-group" style="margin-bottom: 8px; display: flex; flex-direction: row; align-items: center;">
+        <label for="payment-reference" style="font-size: 0.8rem; width: 150px;">Transaction Reference:</label>
+        <input style="width: calc(100% - 150px); height: 25px; font-size: 0.8rem;" type="text" id="payment-reference" formControlName="paymentReference" placeholder="45417280" readonly />
+      </div>
+
+      <div style="display: flex; gap: 30px; margin-bottom: 8px;">
+        <div class="form-group" style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+          <label for="amount" style="font-size: 0.8rem; width: 90px;">Amount:</label>
+          <input style="width: calc(100% - 150px); height: 25px; font-size: 0.8rem;" type="text" id="amount" formControlName="amount" placeholder="Enter amount" readonly />
+        </div>
+        <div class="form-group" style="flex: 1; display: flex; flex-direction: row; align-items: center;">
+          <label for="convenienceFee" style="font-size: 0.8rem; width: 120px;">Convenience Fee:</label>
+          <input style="width: calc(100% - 200px); height: 25px; font-size: 0.8rem;" type="text" id="convenienceFee" formControlName="convenienceFee" placeholder="Fee" readonly />
         </div>
       </div>
 
-      <div class="form-group">
-        <div class="row-group">
-          <label for="amount" style="text-align: center; margin-top: 10px; width: 40%;">Amount : </label>
-          <input style="width: 60%;" type="text" id="amount" formControlName="amount" aria-label="Amount" placeholder="Enter amount" readonly />
-        </div>
+      <div class="form-group" style="margin-bottom: 8px; display: flex; flex-direction: row; align-items: center;">
+        <label for="amountPayable" style="font-size: 0.8rem; width: 150px;">Amount Payable:</label>
+        <input style="width: calc(100% - 150px); height: 25px; font-size: 0.8rem;" type="text" id="amountPayable" formControlName="amountPayable" placeholder="Amount Payable" readonly />
       </div>
 
-      <div class="form-group">
-        <div class="row-group">
-          <label for="full-name" style="text-align: center; margin-top: 10px; width: 40%;">Full Name : </label>
-          <input style="width: 60%;" type="text" id="full-name" aria-label="Full Name" formControlName="fullName" placeholder="Emmanuel Afonrinwo" readonly />
-        </div>
+      <div class="form-group" style="margin-bottom: 8px; display: flex; flex-direction: row; align-items: center;">
+        <label for="full-name" style="font-size: 0.8rem; width: 150px;">Full Name:</label>
+        <input style="width: calc(100% - 150px); height: 25px; font-size: 0.8rem;" type="text" id="full-name" formControlName="fullName" placeholder="Emmanuel Afonrinwo" readonly />
       </div>
 
-      <div class="form-group">
-        <div class="row-group">
-          <label for="bank-account-name" style="text-align: center; margin-top: 10px; width: 40%;">Bank Account Name</label>
-          <input style="width: 60%;" type="text" id="bank-account-name" formControlName="accountName" aria-label="Bank Account Name" placeholder="Contec/emmanuel" readonly />
-        </div>
+      <div class="form-group" style="margin-bottom: 8px; display: flex; flex-direction: row; align-items: center;">
+        <label for="bank-account-name" style="font-size: 0.8rem; width: 150px;">Bank Account Name:</label>
+        <input style="width: calc(100% - 150px); height: 25px; font-size: 0.8rem;" type="text" id="bank-account-name" formControlName="accountName" placeholder="Contec/emmanuel" readonly />
       </div>
 
-      <div class="form-group">
-        <div class="row-group">
-          <label for="bank" style="text-align: center; margin-top: 10px; width: 40%;">Bank : </label>
-          <input style="width: 60%;" type="text" id="bank" formControlName="bankName" aria-label="Bank" placeholder="NowNow" readonly />
-        </div>
+      <div class="form-group" style="margin-bottom: 8px; display: flex; flex-direction: row; align-items: center;">
+        <label for="bank" style="font-size: 0.8rem; width: 150px;">Bank:</label>
+        <input style="width: calc(100% - 150px); height: 25px; font-size: 0.8rem;" type="text" id="bank" formControlName="bankName" placeholder="NowNow" readonly />
       </div>
 
-      <div class="form-group">
-        <div class="row-group">
-          <label for="bank-account-number" style="text-align: center; margin-top: 10px; width: 40%;">Bank Account Number :</label>
-          <input style="width: 60%;" type="text" id="bank-account-number" formControlName="accountNumber" aria-label="Account Number" placeholder="1234567890" readonly />
-        </div>
+      <div class="form-group" style="margin-bottom: 8px; display: flex; flex-direction: row; align-items: center;">
+        <label for="bank-account-number" style="font-size: 0.8rem; width: 200px;">Beneficiary Account Number:</label>
+        <input style="width: calc(100% - 150px); height: 25px; font-size: 0.8rem;" type="text" id="bank-account-number" formControlName="accountNumber" placeholder="1234567890" readonly />
       </div>
 
-      <button type="submit" [disabled]="!transferForm.valid || isProcessing" class="confirm-payment">
+      <button type="submit" [disabled]="!transferForm.valid || isProcessing" class="confirm-payment" style="height: 30px; font-size: 0.8rem; width: 100%; margin-top: 8px;">
         {{ isProcessing ? 'Processing...' : 'Confirm Payment' }}
       </button>
     </form>
+
     <div class="verify-info">
-      <small style="color: red; font-weight: bolder;">
+      <small style="color: red; font-weight: bolder; font-size: 0.7rem;">
         Make transfer to the above account. When you are done, click on the confirm payment button.
       </small>
     </div>
   </div>
 </div>
 
-<div class="powered-by">
+<div class="powered-by" style="font-size: 0.7rem;">
   powered by NowNow
 </div>

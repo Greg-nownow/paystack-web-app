@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="menu">
+  <div class="menu" style="height: 620px;">
     <div class="button-group">
       <button class="button" [class.active]="(activeTab$ | async) === 'card'" (click)="navigateToCard()">Card</button>
     </div>
@@ -7,54 +7,52 @@
       <button class="button" [class.active]="(activeTab$ | async) === 'transfer'" (click)="navigateToTransfer()">Transfer</button>
     </div>
   </div>
-  <div class="card">
+  <div class="card" style="width: 600px; height: 620px; padding: 20px;">
     <div class="card__header">
-      <img src="assets/icons/contec-logo.png" style="width: 40px;" class="logo" />
-      <h1>Payment information</h1>
+      <img src="assets/icons/contec-logo.png" style="width: 30px;" class="logo" />
+      <h1 style="font-size: 1rem;">Payment information</h1>
     </div>
-    <form>
-      <div class="form-group">
-        <label for="cardholder-name">Payment Reference</label>
-        <input type="text" id="paymentReference" class="empty" aria-label="payment" placeholder="42324235566" required />
+    <form style="margin-top: 20px;">
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="paymentReference" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">Payment Reference</label>
+        <input style="width: calc(100% - 10px); height: 25px; font-size: 0.8rem; background-color: #ffffff;" type="text" id="paymentReference" class="empty" placeholder="42324235566" required />
       </div>
-      <div class="form-group">
-        <label for="full-name">Full Name</label>
-        <input class="full-name empty" type="text" id="full-name" aria-label="Full Name" placeholder="Alex Montoya"
-          required />
+
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="full-name" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">Full Name</label>
+        <input style="width: calc(100% - 10px); height: 25px; font-size: 0.8rem; background-color: #ffffff;" class="full-name empty" type="text" id="full-name" placeholder="Alex Montoya" required />
       </div>
-  
-      <div class="icon-group-container">
-        <label for="card-number">Card Number</label>
-        <div class="icon-group empty">
-          <input type="text" id="card-number" aria-label="Card Number" class="empty" placeholder="1234 1234 1234 1234"
-            required />
-          <img id="card-icon" src="assets/icons/credit-card.png" height="14" width="14" />
+
+      <div class="form-group" style="margin-bottom: 15px;">
+        <label for="card-number" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">Card Number</label>
+        <div style="position: relative; width: 100%;">
+          <input style="width: calc(100% - 35px); height: 25px; font-size: 0.8rem; padding-right: 25px; background-color: #ffffff;" type="text" id="card-number" class="empty" placeholder="1234 1234 1234 1234" required />
+          <img style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);" id="card-icon" src="assets/icons/credit-card.png" height="12" width="12" />
         </div>
       </div>
-  
-      <div class="row-group">
-        <div class="form-group">
-          <label for="expiration">Expiration Date</label>
-          <input class="expiration-input empty" type="tel" id="expiration" minlength="5" maxlength="5" pattern="/{5}/"
-            placeholder="MM/YY" required />
+
+      <div style="display: flex; gap: 30px; margin-bottom: 15px;">
+        <div class="form-group" style="flex: 1;">
+          <label for="expiration" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">Expiration Date</label>
+          <input style="width: calc(100% - 10px); height: 25px; font-size: 0.8rem; background-color: #ffffff;" class="expiration-input empty" type="tel" id="expiration" minlength="5" maxlength="5" pattern="/{5}/" placeholder="MM/YY" required />
         </div>
-        <div class="icon-group-container">
-          <label for="cvv">CVV</label>
-          <div class="icon-group empty">
-            <input class="cvv-input empty" type="tel" maxlength="3" placeholder="···" id="cvv" required />
-            <img id="info-icon" src="assets/icons/info.png" height="14" width="14" />
+        <div class="form-group" style="flex: 1;">
+          <label for="cvv" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">CVV</label>
+          <div style="position: relative; width: 100%;">
+            <input style="width: calc(100% - 35px); height: 25px; font-size: 0.8rem; padding-right: 25px; background-color: #ffffff;" class="cvv-input empty" type="tel" maxlength="3" placeholder="···" id="cvv" required />
+            <img style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);" id="info-icon" src="assets/icons/info.png" height="12" width="12" />
           </div>
         </div>
       </div>
-    
-      <button type="submit">Confirm payment</button>
+
+      <button type="submit" class="confirm-payment" style="height: 30px; font-size: 0.8rem; width: calc(100% - 10px); margin-top: 15px;">Confirm payment</button>
     </form>
-    <div class="verify-info">
-      <small>Verify the information is correct</small>
+    <div class="verify-info" style="margin-top: 15px;">
+      <small style="font-size: 0.7rem;">Verify the information is correct</small>
     </div>
   </div>
 </div>
 
-<div class="powered-by">
+<div class="powered-by" style="font-size: 0.7rem;">
   powered by NowNow
 </div>

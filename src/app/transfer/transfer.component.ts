@@ -33,6 +33,8 @@ export class TransferComponent implements OnInit {
         amount: ['', [Validators.required, Validators.min(1)]],
         paymentReference: ['', Validators.required],
         fullName: [{value: '', disabled: true}, Validators.required],
+        convenienceFee: [{value: '', disabled: true}, Validators.required],
+        amountPayable: [{value: '', disabled: true}, Validators.required],
       });
      }
 
@@ -42,15 +44,19 @@ export class TransferComponent implements OnInit {
   
     fetchAdminDetails() {
       this.tabService.getAdminDetails().subscribe(details => {
-        console.log(details.data);
+        // const amount = Math.round(Math.random() * 10000);
+        const amount = 9_000_000_000;
+        const convenienceFee = 100;
         this.adminDetails = details.data;
         this.transferForm.patchValue({
           accountNumber: this.adminDetails?.accountNumber,
           accountName: this.adminDetails?.accountName,
           bankName: this.adminDetails?.bankName,
-          amount: 1000,
+          amount: amount,
           paymentReference: 45417280,
           fullName: "John Jane Doe",
+          convenienceFee: convenienceFee,
+          amountPayable: amount + convenienceFee
         });
       });
     }
