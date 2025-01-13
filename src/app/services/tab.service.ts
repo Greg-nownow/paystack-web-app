@@ -15,17 +15,41 @@ interface AdminDetails {
   providedIn: 'root'
 })
 export class TabService {
-  constructor(private http: HttpClient) {}
-  
   private activeTabSubject = new BehaviorSubject<string>('card');
   activeTab$ = this.activeTabSubject.asObservable();
+  private expirationTimeInSeconds = 30 * 60 + 30; // Initial countdown value
+  private lastUpdatedTimestamp: number = Date.now(); // Tracks when the timer was last updated
+
+  private timerSubject = new BehaviorSubject<string>('');
+  public timer$ = this.timerSubject.asObservable();
+
+  constructor(private http: HttpClient) {
+    this.updateCountdown(); // Initialize the countdown
+    setInterval(() => this.updateCountdown(), 1000); // Update timer every second
+  }
+  
+    // Method to update the countdown and calculate the remaining time
+    private updateCountdown() {
+      const now = Date.now();
+      const elapsedSeconds = Math.floor((now - this.lastUpdatedTimestamp) / 1000);
+  
+      const remainingTime = this.expirationTimeInSeconds - elapsedSeconds;
+      if (remainingTime >= 0) {
+        const minutes = Math.floor(remainingTime / 60);
+        const seconds = remainingTime % 60;
+        this.timerSubject.next(`${minutes} mins ${seconds < 10 ? '0' : ''}${seconds} secs`);
+      } else {
+        this.timerSubject.next('Expired');
+      }
+    }
 
   setActiveTab(tab: string) {
     this.activeTabSubject.next(tab);
   }
 
   getAdminDetails(): Observable<any> {
-    return this.http.post<any>('https://28f2-197-211-43-250.ngrok-free.app/api/v1/nowNowVirtualAccount', {
+    // https://9345-41-204-243-98.ngrok-free.app
+    return this.http.post<any>('https://9345-41-204-243-98.ngrok-free.app/api/v1/nowNowVirtualAccount', {
       "paymentRef": "00000001",
       "amount": 10000,
       "customerRef": "2348022250132",

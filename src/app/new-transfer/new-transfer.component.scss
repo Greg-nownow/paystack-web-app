@@ -1,0 +1,306 @@
+// .payment-modal {
+//     font-family: Arial, sans-serif;
+//     background: #fff;
+//     padding: 20px;
+//     border-radius: 20px;
+//     width: 400px;
+//     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+//   }
+  
+//   .header {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin-bottom: 20px;
+//   }
+  
+//   .header h3 {
+//     font-size: 16px;
+//     color: #333;
+//   }
+  
+//   .close-button {
+//     background: none;
+//     border: none;
+//     font-size: 14px;
+//     color: #999;
+//     cursor: pointer;
+//   }
+  
+//   .payment-details {
+//     margin-bottom: 20px;
+//     text-align: center;
+//   }
+  
+//   .payment-details h4 {
+//     font-size: 14px;
+//     color: #666;
+//   }
+  
+//   .payment-details .amount {
+//     font-size: 24px;
+//     font-weight: bold;
+//     color: #000;
+//     margin: 10px 0;
+//   }
+  
+//   .payment-details p {
+//     font-size: 12px;
+//     color: #666;
+//   }
+  
+//   .transfer-details {
+//     margin-bottom: 20px;
+//   }
+  
+//   .transfer-details h5 {
+//     font-size: 14px;
+//     color: #333;
+//     margin-bottom: 10px;
+//   }
+  
+//   .bank-details {
+//     background: #f9f9f9;
+//     padding: 10px;
+//     border-radius: 8px;
+//     text-align: center;
+//     margin-bottom: 10px;
+//   }
+  
+//   .bank-details .bank-name {
+//     font-size: 14px;
+//     font-weight: bold;
+//     color: #333;
+//   }
+  
+//   .bank-details .account-number {
+//     font-size: 18px;
+//     font-weight: bold;
+//     color: #000;
+//   }
+  
+//   .bank-details .account-note {
+//     font-size: 12px;
+//     color: #ff0000;
+//   }
+  
+//   .bank-details .account-name {
+//     font-size: 12px;
+//     color: #666;
+//   }
+  
+//   .bank-details .expiration span {
+//     color: #ff6600;
+//   }
+  
+//   .ussd-code {
+//     display: block;
+//     margin: 0 auto;
+//     background: #f1f1f1;
+//     color: #333;
+//     border: none;
+//     border-radius: 5px;
+//     padding: 10px;
+//     font-size: 14px;
+//     cursor: pointer;
+//     margin-top: 10px;
+//   }
+  
+//   .action-button {
+//     text-align: center;
+//   }
+  
+//   .confirm-button {
+//     background: #ff9800;
+//     color: #fff;
+//     border: none;
+//     border-radius: 5px;
+//     padding: 10px 20px;
+//     font-size: 16px;
+//     cursor: pointer;
+//   }
+  
+//   footer {
+//     text-align: center;
+//     margin-top: 10px;
+//     font-size: 12px;
+//     color: #666;
+//   }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+    margin-left: 2rem;
+    
+    .button {
+      padding: 0.2em 1.5rem;
+      width: 100%;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      background-color: #f0f0f0;
+      
+      &:hover {
+        background-color: #fff;
+      }
+  
+      &.active {
+        background-color: #eaa64d;
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+    min-height: fit-content;
+    gap: 0.05em;
+  }
+
+
+
+
+// test
+
+.payment-modal {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 12px;
+    width: 400px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    color: #333333;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    margin: 0;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 12px;
+    margin-left: auto;
+    color: #666666;
+    cursor: pointer;
+  }
+  
+  .payment-details {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .payment-details h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #666666;
+    margin: 0;
+  }
+  
+  .payment-details .amount {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333333;
+    margin: 10px 0;
+  }
+  
+  .payment-details p {
+    font-size: 12px;
+    color: #666666;
+    margin: 0;
+  }
+  
+  .transfer-details {
+    margin-bottom: 20px;
+  }
+  
+  .transfer-details h5 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 10px;
+  }
+  
+  .bank-details {
+    background: #F9F9F9;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 10px;
+    border: 1px solid #E0E0E0;
+  }
+  
+  .bank-details .bank-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+  }
+  
+  .bank-details .account-number {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+  }
+  
+  .bank-details .account-note {
+    font-size: 12px;
+    color: #FF4D4F;
+    margin: 5px 0;
+  }
+  
+  .bank-details .account-name {
+    font-size: 12px;
+    color: #666666;
+  }
+  
+  .bank-details .expiration span {
+    font-weight: 600;
+    color: #FF9800;
+  }
+  
+  .ussd-code {
+    display: block;
+    margin: 10px auto 0;
+    background: #F1F1F1;
+    color: #333333;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .action-button {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .confirm-button {
+    background: #FF9800;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  footer {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666666;
+  }
+  

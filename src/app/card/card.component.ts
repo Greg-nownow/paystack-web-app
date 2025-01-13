@@ -28,4 +28,9 @@ export class CardComponent {
     this.tabService.setActiveTab('transfer');
     this.router.navigate(['/transfer']);
   }
+
+  navigateToNewTransfer() {
+    this.tabService.setActiveTab('newTransfer');
+    this.router.navigate(['/new-transfer']);
+  }
 }

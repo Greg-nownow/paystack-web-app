@@ -16,8 +16,8 @@ export class TransferComponent implements OnInit {
   activeTab$: any;
   transferForm: FormGroup;
   adminDetails = {
-    accountNumber: '',
-    accountName: '',
+    beneficiaryAccountNumber: '',
+    beneficiaryAccountName: '',
     bankName: ''
   };
   isProcessing = false
@@ -49,8 +49,8 @@ export class TransferComponent implements OnInit {
         const convenienceFee = 100;
         this.adminDetails = details.data;
         this.transferForm.patchValue({
-          accountNumber: this.adminDetails?.accountNumber,
-          accountName: this.adminDetails?.accountName,
+          accountNumber: this.adminDetails?.beneficiaryAccountNumber,
+          accountName: this.adminDetails?.beneficiaryAccountName,
           bankName: this.adminDetails?.bankName,
           amount: amount,
           paymentReference: 45417280,
@@ -97,5 +97,10 @@ export class TransferComponent implements OnInit {
             }
           });
       }
+    }
+
+    navigateToNewTransfer() {
+      this.tabService.setActiveTab('newTransfer');
+      this.router.navigate(['/new-transfer']);
     }
 }

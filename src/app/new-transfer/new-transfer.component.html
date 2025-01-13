@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="menu" style="height: 650px;">
+        <div class="button-group">
+          <button class="button" [class.active]="(activeTab$ | async) === 'card'" (click)="navigateToCard()">Card</button>
+        </div>
+        <div class="button-group">
+          <button class="button" [class.active]="(activeTab$ | async) === 'transfer'" (click)="navigateToTransfer()">Transfer</button>
+        </div>
+    
+        <div class="button-group">
+          <button class="button" [class.active]="(activeTab$ | async) === 'newTransfer'" (click)="navigateToNewTransfer()">New Transfer</button>
+        </div>
+      </div>
+    <div class="payment-modal">
+        <div class="card__header">
+            <img src="assets/icons/contec-logo.png" style="width: 30px;" class="logo" />
+            <h1 style="font-size: 1rem;">Payment information</h1>
+          </div>
+
+          
+        <div class="header">
+          <button class="close-button">Ref: 323423242324</button>
+        </div>
+      
+        <div class="payment-details">
+          <h4>Amount to pay</h4>
+          <div class="amount">₦15,500.00</div>
+          <p>Amount ₦15,500.00 | Fee ₦0.00</p>
+        </div>
+      
+        <div class="transfer-details">
+          <h5>Transfer to account details below</h5>
+          <div class="bank-details">
+            <p class="bank-name">MONIEPOINT MICROFINANCE BANK</p>
+            <p class="account-number">6856591858</p>
+            <p class="account-note">Do not save this account no.!</p>
+            <p class="account-name">Account Name: MONNIFY CHECKOUT</p>
+            <p class="expiration">This one-time account expires in <span>{{ formattedTime }}</span></p>
+          </div>
+          <button class="ussd-code">Get your bank's USSD code</button>
+        </div>
+      
+        <div class="action-button">
+          <button class="confirm-button">I've transferred the money</button>
+        </div>
+      
+        <footer>🔒 Secured by NowNow</footer>
+      </div>
+      
+</div>
