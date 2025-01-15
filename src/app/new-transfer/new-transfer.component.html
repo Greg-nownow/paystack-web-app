@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="menu" style="height: 650px;">
+    <div class="menu" style="height: 700px;">
         <div class="button-group">
           <button class="button" [class.active]="(activeTab$ | async) === 'card'" (click)="navigateToCard()">Card</button>
         </div>
@@ -31,13 +31,13 @@
         <div class="transfer-details">
           <h5>Transfer to account details below</h5>
           <div class="bank-details">
-            <p class="bank-name">MONIEPOINT MICROFINANCE BANK</p>
-            <p class="account-number">6856591858</p>
+            <p class="bank-name">{{bankName}}</p>
+            <p class="account-number">{{beneficiaryAccountNumber}}</p>
             <p class="account-note">Do not save this account no.!</p>
-            <p class="account-name">Account Name: MONNIFY CHECKOUT</p>
+            <p class="account-name"><b>Account Name:</b> {{beneficiaryAccountName}}</p>
             <p class="expiration">This one-time account expires in <span>{{ formattedTime }}</span></p>
           </div>
-          <button class="ussd-code">Get your bank's USSD code</button>
+          <!-- <button class="ussd-code">Get your bank's USSD code</button> -->
         </div>
       
         <div class="action-button">

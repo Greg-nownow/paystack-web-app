@@ -17,11 +17,11 @@ import { Subscription } from 'rxjs';
 })
 export class NewTransferComponent {
   activeTab$: any;
-  // expirationTime = 30 * 60;
   formattedTime: string = '';
+  beneficiaryAccountNumber: number = 0;
+  beneficiaryAccountName: string = '';
+  bankName: string = '';
   private timerSubscription: Subscription | null = null;
-
-  private intervalId: any;
 
   constructor(private router: Router,
     private tabService: TabService, private fb: FormBuilder, private snackBar: MatSnackBar,
@@ -31,6 +31,7 @@ export class NewTransferComponent {
   }
   ngOnInit() {
     // Subscribe to the timer observable to get updates
+    this.fetchCurrentTransactionDetails()
     this.timerSubscription = this.tabService.timer$.subscribe(
       (time) => {
         this.formattedTime = time;
@@ -58,6 +59,14 @@ export class NewTransferComponent {
   navigateToNewTransfer() {
     this.tabService.setActiveTab('newTransfer');
     this.router.navigate(['/new-transfer']);
+  }
+
+  fetchCurrentTransactionDetails(){
+    this.tabService.getAdminDetails().subscribe((details) =>{
+        this.beneficiaryAccountNumber = details.data.beneficiaryAccountNumber;
+      this.beneficiaryAccountName = details.data.beneficiaryAccountName;
+      this.bankName = details.data.bankName;
+    })
   }
 
 }

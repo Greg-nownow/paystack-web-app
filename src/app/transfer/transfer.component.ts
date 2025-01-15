@@ -78,18 +78,9 @@ export class TransferComponent implements OnInit {
         this.tabService.submitTransfer(this.transferForm.getRawValue().amount)
           .subscribe({
             next: (response: any) => {
-              // setTimeout(() => {
                 this.isProcessing = false;
-                // this.toastService.show('Transaction successful!<br>You are now being redirected to the homepage...');
-                // this.toastService.show('<span class="success-message" >Transaction successful!</span><br><br>You are now being redirected to the homepage...');
-                // this.toastService.show('<span style="color: #4CAF50 !important; font-weight: 600 !important;">Transaction successful!</span><br><br>You are now being redirected to the homepage...');
                 this.toastService.show(true as any);
-
-
-              
                 this.tabService.setActiveTab('card');
-                // this.router.navigate(['/']);
-              // }, 2000);
             },
             error: (error) => {
               this.isProcessing = false;
