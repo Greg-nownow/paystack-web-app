@@ -60,3 +60,36 @@
   color: #fff;
   font-style: italic;
 }
+
+
+.invalid {
+  border-color: red;
+}
+
+input {
+  width: calc(100% - 10px);
+  height: 25px;
+  font-size: 0.8rem;
+  background-color: #ffffff;
+  padding: 0 5px;
+}
+
+label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
+
+.confirm-payment {
+  height: 30px;
+  font-size: 0.8rem;
+  width: calc(100% - 10px);
+  margin-top: 15px;
+  cursor: pointer;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+

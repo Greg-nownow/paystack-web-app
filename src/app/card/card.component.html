@@ -15,47 +15,77 @@
       <img src="assets/icons/contec-logo.png" style="width: 30px;" class="logo" />
       <h1 style="font-size: 1rem;">Payment information</h1>
     </div>
-    <form style="margin-top: 20px;">
+    <form [formGroup]="cardForm" (ngSubmit)="initiatePayStack()" style="margin-top: 20px;">
       <div class="form-group" style="margin-bottom: 15px;">
         <label for="paymentReference" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">Payment Reference</label>
-        <input style="width: calc(100% - 10px); height: 25px; font-size: 0.8rem; background-color: #ffffff;" type="text" id="paymentReference" class="empty" placeholder="42324235566" required />
+        <input formControlName="paymentReference" 
+               type="text" 
+               id="paymentReference" 
+               autocomplete="off"
+               [class.invalid]="cardForm.get('paymentReference')?.invalid && cardForm.get('paymentReference')?.touched"/>
       </div>
 
       <div class="form-group" style="margin-bottom: 15px;">
-        <label for="full-name" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">Full Name</label>
-        <input style="width: calc(100% - 10px); height: 25px; font-size: 0.8rem; background-color: #ffffff;" class="full-name empty" type="text" id="full-name" placeholder="Alex Montoya" required />
+        <label for="fullName">Full Name</label>
+        <input formControlName="fullName" 
+               type="text" 
+               id="fullName"
+               autocomplete="off"
+               [class.invalid]="cardForm.get('fullName')?.invalid && cardForm.get('fullName')?.touched"/>
       </div>
 
       <div class="form-group" style="margin-bottom: 15px;">
-        <label for="card-number" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">Card Number</label>
+        <label for="cardNumber">Card Number</label>
         <div style="position: relative; width: 100%;">
-          <input style="width: calc(100% - 35px); height: 25px; font-size: 0.8rem; padding-right: 25px; background-color: #ffffff;" type="text" id="card-number" class="empty" placeholder="1234 1234 1234 1234" required />
-          <img style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);" id="card-icon" src="assets/icons/credit-card.png" height="12" width="12" />
+          <input formControlName="cardNumber"
+                 type="text"
+                 id="cardNumber"
+                 autocomplete="off"
+                 (input)="maskCardNumber($event)"
+                 placeholder="1234 5678 9012 3456"
+                 style="width: calc(100% - 35px); height: 25px; font-size: 0.8rem; padding-right: 25px; background-color: #ffffff;"
+                 [class.invalid]="cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched"/>
+          <img src="assets/icons/credit-card.png" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);" height="12" width="12" />
         </div>
       </div>
 
       <div style="display: flex; gap: 30px; margin-bottom: 15px;">
         <div class="form-group" style="flex: 1;">
-          <label for="expiration" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">Expiration Date</label>
-          <input style="width: calc(100% - 10px); height: 25px; font-size: 0.8rem; background-color: #ffffff;" class="expiration-input empty" type="tel" id="expiration" minlength="5" maxlength="5" pattern="/{5}/" placeholder="MM/YY" required />
+          <label for="expirationDate">Expiration Date</label>
+          <input formControlName="expirationDate"
+                 type="text"
+                 id="expirationDate"
+                 autocomplete="off"
+                 (input)="formatExpiryDate($event)"
+                 [class.invalid]="cardForm.get('expirationDate')?.invalid && cardForm.get('expirationDate')?.touched"/>
         </div>
         <div class="form-group" style="flex: 1;">
           <label for="cvv" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">CVV</label>
           <div style="position: relative; width: 100%;">
-            <input style="width: calc(100% - 35px); height: 25px; font-size: 0.8rem; padding-right: 25px; background-color: #ffffff;" class="cvv-input empty" type="tel" maxlength="3" placeholder="···" id="cvv" required />
-            <img style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);" id="info-icon" src="assets/icons/info.png" height="12" width="12" />
+            <input formControlName="cvv"
+                   type="password"
+                   id="cvv"
+                   maxlength="3"
+                   autocomplete="off"
+                   style="width: calc(100% - 35px); height: 25px; font-size: 0.8rem; padding-right: 25px; background-color: #ffffff;"
+                   [class.invalid]="cardForm.get('cvv')?.invalid && cardForm.get('cvv')?.touched"/>
+            <img src="assets/icons/info.png" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);" height="12" width="12" />
           </div>
         </div>
       </div>
 
-      <button type="submit" class="confirm-payment" style="height: 30px; font-size: 0.8rem; width: calc(100% - 10px); margin-top: 15px;" (click)="initiatePayStack()">Confirm payment</button>
+      <button type="submit" 
+              class="confirm-payment" 
+              [disabled]="!cardForm.valid">
+        Confirm payment
+      </button>
     </form>
     <div class="verify-info" style="margin-top: 15px;">
-      <small style="font-size: 0.7rem;">Verify the information is correct</small>
+      <small  style="font-size: 0.7rem;">Verify the information is correct</small>
     </div>
   </div>
 </div>
 
-<div class="powered-by" style="font-size: 0.7rem;">
+<div class="powered-by"  style="font-size: 0.7rem;">
   powered by NowNow
 </div>
