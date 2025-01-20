@@ -169,16 +169,17 @@ label {
   .input-wrapper {
     position: relative;
     width: 100%;
-    
+
     .input-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
       position: absolute;
-      right: 12px;
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      height: 16px;
-      width: 16px;
-      opacity: 0.5;
     }
+    
   }
 
   // input {

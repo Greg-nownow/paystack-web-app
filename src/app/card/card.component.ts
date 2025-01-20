@@ -15,9 +15,16 @@ import { CommonModule } from '@angular/common';
 })
 export class CardComponent implements OnInit, OnDestroy {
   activeTab$: any;
+  cardForm!: FormGroup;
+  cardType: string = '';
+  cardTypeIcon: string = 'assets/icons/credit-card.png';
   private readonly SESSION_TIMEOUT = 600000; // 10 minutes
   private sessionTimer: any;
-  cardForm!: FormGroup;
+  private readonly CARD_PATTERNS = {
+    visa: /^4/,
+    mastercard: /^5[1-5]/,
+    verve: /^506[0-1]|^507[8-9]|^6500/
+  };
 
   
 
@@ -72,6 +79,7 @@ export class CardComponent implements OnInit, OnDestroy {
     console.log(masked);
     event.target.value = masked;
     this.cardForm.patchValue({ cardNumber: input }, { emitEvent: false });
+    this.detectCardType(input);1
   }
 
   formatExpiryDate(event: any) {
@@ -83,13 +91,27 @@ export class CardComponent implements OnInit, OnDestroy {
   }
 
   initiatePayStack() {
-    // if (this.cardForm.valid) {
-    //   const securePayload = this.prepareSecurePayload();
-    //   // Implement PayStack integration here
-    //   this.toastService.show(true);
-    // }
     console.log(this.cardForm.value);
   }
+
+  // Add this method to detect card type
+detectCardType(cardNumber: string) {
+  const cleanNumber = cardNumber.replace(/\D/g, '');
+  
+  if (this.CARD_PATTERNS.visa.test(cleanNumber)) {
+    this.cardType = 'visa';
+    this.cardTypeIcon = 'assets/icons/visa.svg';
+  } else if (this.CARD_PATTERNS.mastercard.test(cleanNumber)) {
+    this.cardType = 'mastercard';
+    this.cardTypeIcon = 'assets/icons/mastercard.svg';
+  } else if (this.CARD_PATTERNS.verve.test(cleanNumber)) {
+    this.cardType = 'verve';
+    this.cardTypeIcon = 'assets/icons/verve.png';
+  } else {
+    this.cardType = '';
+    this.cardTypeIcon = 'assets/icons/credit-card.png';
+  }
+}
 
   private startSessionTimer() {
     this.sessionTimer = setTimeout(() => {

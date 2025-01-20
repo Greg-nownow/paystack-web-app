@@ -40,7 +40,7 @@
                    (input)="maskCardNumber($event)"
                    placeholder="1234 5678 9012 3456"
                    [class.invalid]="cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched"/>
-            <img src="assets/icons/credit-card.png" class="input-icon" alt="card icon"/>
+            <img [src]="cardTypeIcon" class="input-icon" alt="card icon"/>
           </div>
         </div>
     
