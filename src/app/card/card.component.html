@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="menu" style="height: 620px;">
+  <div class="menu" style="height: 680px;">
     <div class="button-group">
       <button class="button" [class.active]="(activeTab$ | async) === 'card'" (click)="navigateToCard()">Card</button>
     </div>
@@ -10,76 +10,73 @@
       <button class="button" [class.active]="(activeTab$ | async) === 'newTransfer'" (click)="navigateToNewTransfer()">New Transfer</button>
     </div>
   </div>
-  <div class="card" style="width: 600px; height: 620px; padding: 20px;">
+  <div class="card" style="width: 1000px; height: 680px; padding: 20px;">
     <div class="card__header">
       <img src="assets/icons/contec-logo.png" style="width: 30px;" class="logo" />
       <h1 style="font-size: 1rem;">Payment information</h1>
     </div>
-    <form [formGroup]="cardForm" (ngSubmit)="initiatePayStack()" style="margin-top: 20px;">
-      <div class="form-group" style="margin-bottom: 15px;">
-        <label for="paymentReference" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">Payment Reference</label>
-        <input formControlName="paymentReference" 
-               type="text" 
-               id="paymentReference" 
-               autocomplete="off"
-               [class.invalid]="cardForm.get('paymentReference')?.invalid && cardForm.get('paymentReference')?.touched"/>
+    <div style="margin-top: 20px;">
+      <div class="header">
+        <button class="close-button">Ref: 323423242324</button>
       </div>
-
-      <div class="form-group" style="margin-bottom: 15px;">
-        <label for="fullName">Full Name</label>
-        <input formControlName="fullName" 
-               type="text" 
-               id="fullName"
-               autocomplete="off"
-               [class.invalid]="cardForm.get('fullName')?.invalid && cardForm.get('fullName')?.touched"/>
+    
+      <div class="payment-details">
+        <h4>Amount to pay</h4>
+        <div class="amount">₦15,500.00</div>
+        <p>Amount ₦15,500.00 | Fee ₦0.00</p>
       </div>
-
-      <div class="form-group" style="margin-bottom: 15px;">
-        <label for="cardNumber">Card Number</label>
-        <div style="position: relative; width: 100%;">
-          <input formControlName="cardNumber"
-                 type="text"
-                 id="cardNumber"
-                 autocomplete="off"
-                 (input)="maskCardNumber($event)"
-                 placeholder="1234 5678 9012 3456"
-                 style="width: calc(100% - 35px); height: 25px; font-size: 0.8rem; padding-right: 25px; background-color: #ffffff;"
-                 [class.invalid]="cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched"/>
-          <img src="assets/icons/credit-card.png" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);" height="12" width="12" />
-        </div>
-      </div>
-
-      <div style="display: flex; gap: 30px; margin-bottom: 15px;">
-        <div class="form-group" style="flex: 1;">
-          <label for="expirationDate">Expiration Date</label>
-          <input formControlName="expirationDate"
-                 type="text"
-                 id="expirationDate"
-                 autocomplete="off"
-                 (input)="formatExpiryDate($event)"
-                 [class.invalid]="cardForm.get('expirationDate')?.invalid && cardForm.get('expirationDate')?.touched"/>
-        </div>
-        <div class="form-group" style="flex: 1;">
-          <label for="cvv" style="display: block; font-size: 0.8rem; margin-bottom: 2px;">CVV</label>
-          <div style="position: relative; width: 100%;">
-            <input formControlName="cvv"
-                   type="password"
-                   id="cvv"
-                   maxlength="3"
+    </div>
+    <div class="payment-form-container">
+      <p class="form-title">Input card details</p>
+      
+      <form [formGroup]="cardForm" (ngSubmit)="initiatePayStack()" class="payment-form">
+        <div class="form-group">
+          <label for="cardNumber">Card Number</label>
+          <div class="input-wrapper">
+            <input formControlName="cardNumber"
+                   type="text"
+                   id="cardNumber"
                    autocomplete="off"
-                   style="width: calc(100% - 35px); height: 25px; font-size: 0.8rem; padding-right: 25px; background-color: #ffffff;"
-                   [class.invalid]="cardForm.get('cvv')?.invalid && cardForm.get('cvv')?.touched"/>
-            <img src="assets/icons/info.png" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);" height="12" width="12" />
+                   (input)="maskCardNumber($event)"
+                   placeholder="1234 5678 9012 3456"
+                   [class.invalid]="cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched"/>
+            <img src="assets/icons/credit-card.png" class="input-icon" alt="card icon"/>
           </div>
         </div>
-      </div>
-
-      <button type="submit" 
-              class="confirm-payment" 
-              [disabled]="!cardForm.valid">
-        Confirm payment
-      </button>
-    </form>
+    
+        <div class="form-row">
+          <div class="form-group">
+            <label for="expirationDate">Expiration Date</label>
+            <input formControlName="expirationDate"
+                   type="text"
+                   id="expirationDate"
+                   autocomplete="off"
+                   (input)="formatExpiryDate($event)"
+                   [class.invalid]="cardForm.get('expirationDate')?.invalid && cardForm.get('expirationDate')?.touched"/>
+          </div>
+          
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <div class="input-wrapper">
+              <input formControlName="cvv"
+                     type="password"
+                     id="cvv"
+                     maxlength="3"
+                     autocomplete="off"
+                     [class.invalid]="cardForm.get('cvv')?.invalid && cardForm.get('cvv')?.touched"/>
+              <img src="assets/icons/info.png" class="input-icon" alt="info icon"/>
+            </div>
+          </div>
+        </div>
+    
+        <button type="submit" 
+                class="confirm-payment" 
+                [disabled]="!cardForm.valid">
+          Confirm payment
+        </button>
+      </form>
+    </div>
+    
     <div class="verify-info" style="margin-top: 15px;">
       <small  style="font-size: 0.7rem;">Verify the information is correct</small>
     </div>
