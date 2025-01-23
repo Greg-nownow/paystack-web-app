@@ -18,6 +18,8 @@ export class CardComponent implements OnInit, OnDestroy {
   cardForm!: FormGroup;
   cardType: string = '';
   cardTypeIcon: string = 'assets/icons/credit-card.png';
+  amount: number = 5000.00;
+  transactionReference: string = '';
   private readonly SESSION_TIMEOUT = 600000; // 10 minutes
   private sessionTimer: any;
   private readonly CARD_PATTERNS = {
@@ -34,6 +36,7 @@ export class CardComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private toastService: ToastService
   ) {
+    this.transactionReference = `TRX${Math.random().toString(36).substr(2, 9)}`;
     this.activeTab$ = this.tabService.activeTab$;
     this.initForm();
     
@@ -97,6 +100,8 @@ export class CardComponent implements OnInit, OnDestroy {
   // Add this method to detect card type
 detectCardType(cardNumber: string) {
   const cleanNumber = cardNumber.replace(/\D/g, '');
+
+  this.cardForm.get('cardPin')?.reset();
   
   if (this.CARD_PATTERNS.visa.test(cleanNumber)) {
     this.cardType = 'visa';
@@ -112,6 +117,38 @@ detectCardType(cardNumber: string) {
     this.cardTypeIcon = 'assets/icons/credit-card.png';
   }
 }
+
+isPinRequired(): boolean {
+  return this.cardType === 'mastercard' || this.cardType === 'verve';
+}
+
+cardTransactionInitialize(){
+  const formValue = this.cardForm.value;
+  const transactionPayload = {
+    transactionReference: this.transactionReference,
+    cvv: formValue.cvv,
+    cardNo: formValue.cardNumber.replace(/\s/g, ''),
+    amount: this.amount,
+    cardPin: this.isPinRequired() ? formValue.cardPin : undefined,
+    cardExpiryDate: formValue.expirationDate
+  };
+  this.tabService.cardTransactionInitialize(transactionPayload).subscribe({ 
+    next: (data)=>{
+      console.log(data);
+      if(data.status){
+        this.toastService.showSuccessToast(data?.message);
+        this.navigateToTransfer();
+      }else{
+        this.toastService.showErrorToast(data?.message);
+      }
+    }, 
+    error: (err)=>{
+      console.log(err);
+      this.toastService.showErrorToast(err?.message);
+    }
+  })
+}
+
 
   private startSessionTimer() {
     this.sessionTimer = setTimeout(() => {
@@ -148,7 +185,10 @@ detectCardType(cardNumber: string) {
       fullName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
       cardNumber: ['', [Validators.required, Validators.pattern('^[0-9]{16}$')]],
       expirationDate: ['', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/([0-9]{2})$')]],
-      cvv: ['', [Validators.required, Validators.pattern('^[0-9]{3}$')]]
+      cvv: ['', [Validators.required, Validators.pattern('^[0-9]{3}$')]],
+      cardPin: ['', [Validators.pattern('^[0-9]{4}')]]
     });
   }
+
+  
 }

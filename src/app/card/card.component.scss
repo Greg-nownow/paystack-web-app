@@ -68,7 +68,7 @@
 
 input {
   width: calc(100% - 10px);
-  height: 25px;
+  height: 40px;
   font-size: 0.8rem;
   background-color: #ffffff;
   padding: 0 5px;
@@ -171,8 +171,8 @@ label {
     width: 100%;
 
     .input-icon {
-      width: 24px;
-      height: 24px;
+      width: 32px;
+      height: 32px;
       object-fit: contain;
       position: absolute;
       right: 10px;
@@ -181,6 +181,17 @@ label {
     }
     
   }
+
+  .input-icon-cvv{
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%)
+    
+    }
 
   // input {
   //   width: 100%;
@@ -231,4 +242,13 @@ label {
   //     cursor: not-allowed;
   //   }
   // }
+}
+
+.card-container {
+  height: 680px;
+  transition: height 0.3s ease;
+
+  &.expanded {
+    height: 800px;
+  }
 }

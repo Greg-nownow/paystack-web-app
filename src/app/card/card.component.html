@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="menu" style="height: 680px;">
+  <div class="menu card-container" [ngClass]="{'expanded': isPinRequired()}">
     <div class="button-group">
       <button class="button" [class.active]="(activeTab$ | async) === 'card'" (click)="navigateToCard()">Card</button>
     </div>
@@ -10,26 +10,26 @@
       <button class="button" [class.active]="(activeTab$ | async) === 'newTransfer'" (click)="navigateToNewTransfer()">New Transfer</button>
     </div>
   </div>
-  <div class="card" style="width: 1000px; height: 680px; padding: 20px;">
+  <div class="card card-container" style="width: 1000px; padding: 20px;" [ngClass]="{'expanded': isPinRequired()}">
     <div class="card__header">
       <img src="assets/icons/contec-logo.png" style="width: 30px;" class="logo" />
       <h1 style="font-size: 1rem;">Payment information</h1>
     </div>
     <div style="margin-top: 20px;">
       <div class="header">
-        <button class="close-button">Ref: 323423242324</button>
+        <button class="close-button">Ref: {{transactionReference}}</button>
       </div>
     
       <div class="payment-details">
         <h4>Amount to pay</h4>
-        <div class="amount">₦15,500.00</div>
+        <div class="amount">₦{{amount}}</div>
         <p>Amount ₦15,500.00 | Fee ₦0.00</p>
       </div>
     </div>
     <div class="payment-form-container">
       <p class="form-title">Input card details</p>
       
-      <form [formGroup]="cardForm" (ngSubmit)="initiatePayStack()" class="payment-form">
+      <form [formGroup]="cardForm" (ngSubmit)="cardTransactionInitialize()" class="payment-form">
         <div class="form-group">
           <label for="cardNumber">Card Number</label>
           <div class="input-wrapper">
@@ -42,6 +42,18 @@
                    [class.invalid]="cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched"/>
             <img [src]="cardTypeIcon" class="input-icon" alt="card icon"/>
           </div>
+        </div>
+
+        <div class="form-group" *ngIf="isPinRequired()">
+          <label for="cardPin">Card PIN</label>
+          <input 
+            type="password" 
+            id="cardPin"
+            formControlName="cardPin"
+            maxlength="4"
+            placeholder="Enter 4-digit PIN"
+            [required]="isPinRequired()"
+          >
         </div>
     
         <div class="form-row">
@@ -64,7 +76,7 @@
                      maxlength="3"
                      autocomplete="off"
                      [class.invalid]="cardForm.get('cvv')?.invalid && cardForm.get('cvv')?.touched"/>
-              <img src="assets/icons/info.png" class="input-icon" alt="info icon"/>
+              <img src="assets/icons/info.png" class="input-icon-cvv" alt="info icon"/>
             </div>
           </div>
         </div>

@@ -116,4 +116,17 @@ export class TabService {
 
     // return this.http.post('http://localhost:1050/api/v1/nowNowVirtualAccount', payload);
   }
+
+  cardTransactionInitialize(payload: any){
+      const reqPayload = {
+        "transactionReference": payload.transactionReference,
+        "cvv": payload.cvv,
+        "cardNo": payload.cardNo,
+        "amount": payload.amount,
+        "cardPin": payload.cardPin,
+        "cardExpiryDate": payload.cardExpiryDate
+      }
+
+      return this.http.post<any>('https://2897-105-112-198-83.ngrok-free.app/api/v1/transaction/initialize', reqPayload)
+  }
 }

@@ -33,4 +33,52 @@ export class ToastService {
     });
     this.toastRef.instance.show(isSuccess);
   }
+
+  showSuccessToast(message: string) {
+    if (this.toastRef) {
+      this.toastRef.destroy();
+    }
+
+    this.toastRef = createComponent(ToastComponent, {
+      environmentInjector: this.injector
+    });
+
+    document.body.appendChild(this.toastRef.location.nativeElement);
+    this.appRef.attachView(this.toastRef.hostView);
+
+    this.toastRef.instance.statusMessage = message;
+    this.toastRef.instance.isSuccess = true;
+    this.toastRef.instance.visible = true;
+
+    this.toastRef.instance.onClose.subscribe(() => {
+      if (this.toastRef) {
+        this.toastRef.destroy();
+        this.toastRef = null;
+      }
+    });
+  }
+
+  showErrorToast(message: string) {
+    if (this.toastRef) {
+      this.toastRef.destroy();
+    }
+
+    this.toastRef = createComponent(ToastComponent, {
+      environmentInjector: this.injector
+    });
+
+    document.body.appendChild(this.toastRef.location.nativeElement);
+    this.appRef.attachView(this.toastRef.hostView);
+
+    this.toastRef.instance.statusMessage = message;
+    this.toastRef.instance.isSuccess = false;
+    this.toastRef.instance.visible = true;
+
+    this.toastRef.instance.onClose.subscribe(() => {
+      if (this.toastRef) {
+        this.toastRef.destroy();
+        this.toastRef = null;
+      }
+    });
+  }
 }
