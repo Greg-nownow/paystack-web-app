@@ -1,0 +1,39 @@
+<div class="payment-form-container">
+    <button class="close-button">✕</button>
+    
+    <div class="payment-details">
+      <h4>Enter OTP</h4>
+      <p>Please enter the one-time password sent to your registered mobile number</p>
+    </div>
+  
+    <div class="otp-form">
+      <div class="otp-input-group">
+        @for (digit of otpDigits; track $index) {
+          <input 
+            type="text" 
+            [id]="'otp-' + $index"
+            maxlength="1"
+            [(ngModel)]="otpDigits[$index]"
+            (input)="onDigitInput($event, $index)"
+            (keydown)="onBackspace($event, $index)"
+            class="otp-digit">
+        }
+      </div>
+  
+      <div class="timer">
+        @if (timer) {
+          <span>Resend OTP in: {{timer}}</span>
+        }
+        @if (canResend) {
+          <button class="resend-button" (click)="resendOtp()">Resend OTP</button>
+        }
+      </div>
+  
+      <button class="confirm-payment" 
+              [disabled]="!isOtpComplete()"
+              (click)="onSubmit()">
+        Verify OTP
+      </button>
+    </div>
+  </div>
+  

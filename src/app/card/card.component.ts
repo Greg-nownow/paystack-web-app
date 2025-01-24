@@ -136,15 +136,18 @@ cardTransactionInitialize(){
     next: (data)=>{
       console.log(data);
       if(data.status){
-        this.toastService.showSuccessToast(data?.message);
-        this.navigateToTransfer();
+        // this.toastService.showSuccessToast(data?.message);
+        // this.navigateToTransfer();
+
+        this.router.navigate(['/otp']);
       }else{
         this.toastService.showErrorToast(data?.message);
       }
     }, 
     error: (err)=>{
       console.log(err);
-      this.toastService.showErrorToast(err?.message);
+      this.router.navigate(['/otp']);
+      // this.toastService.showErrorToast(err?.message);
     }
   })
 }

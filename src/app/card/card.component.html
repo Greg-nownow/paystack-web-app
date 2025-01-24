@@ -10,7 +10,7 @@
       <button class="button" [class.active]="(activeTab$ | async) === 'newTransfer'" (click)="navigateToNewTransfer()">New Transfer</button>
     </div>
   </div>
-  <div class="card card-container" style="width: 1000px; padding: 20px;" [ngClass]="{'expanded': isPinRequired()}">
+  <div class="card card-container" style="min-width: 600px; padding: 20px;" [ngClass]="{'expanded': isPinRequired()}">
     <div class="card__header">
       <img src="assets/icons/contec-logo.png" style="width: 30px;" class="logo" />
       <h1 style="font-size: 1rem;">Payment information</h1>
@@ -22,8 +22,8 @@
     
       <div class="payment-details">
         <h4>Amount to pay</h4>
-        <div class="amount">₦{{amount}}</div>
-        <p>Amount ₦15,500.00 | Fee ₦0.00</p>
+        <div class="amount">₦{{amount}}.00</div>
+        <p>Amount ₦{{amount}} | Fee ₦0.00</p>
       </div>
     </div>
     <div class="payment-form-container">

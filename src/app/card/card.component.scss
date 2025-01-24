@@ -8,6 +8,7 @@
 .container {
   display: flex;
   min-height: fit-content;
+  min-width: fit-content;
   gap: 0.05em;
 }
 
@@ -106,7 +107,7 @@ label {
   // float: right;
   color: #666666;
   cursor: pointer;
-  margin-left: 330px;
+  margin-left: 420px;
 }
 
 .payment-details {
@@ -247,6 +248,9 @@ label {
 .card-container {
   height: 680px;
   transition: height 0.3s ease;
+
+  flex: 0 0 auto; // Prevents shrinking
+  min-width: fit-content;
 
   &.expanded {
     height: 800px;
