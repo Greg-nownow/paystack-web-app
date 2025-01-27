@@ -28,6 +28,7 @@
     display: flex;
     min-height: fit-content;
     gap: 0.05em;
+    animation: fadeIn 0.4s ease-in-out forwards;
   }
 
 
@@ -39,7 +40,7 @@
     font-family: 'Poppins', Arial, sans-serif;
     background: #FFFFFF;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 20px;
     width: 600px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     color: #333333;
@@ -67,6 +68,11 @@
     margin-left: auto;
     color: #666666;
     cursor: pointer;
+
+    background: #f8f9fa;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
   }
   
   .payment-details {
@@ -113,6 +119,11 @@
     text-align: center;
     margin-bottom: 10px;
     border: 1px solid #E0E0E0;
+
+
+
+    width: 80%;
+    margin: 0 auto;
   }
   
   .bank-details .bank-name {
@@ -169,6 +180,7 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s ease;
     &:hover{
       background: #f9c888;
     }
@@ -179,5 +191,16 @@
     margin-top: 15px;
     font-size: 12px;
     color: #666666;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   

@@ -3,6 +3,7 @@
   min-height: fit-content;
   // gap: 0;
   gap: 0.05em;
+  animation: fadeIn 0.4s ease-in-out forwards;
 }
 
 .button-group {
@@ -37,4 +38,15 @@
   font-size: 12px;
   color: #fff;
   font-style: italic;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -10,6 +10,7 @@
   min-height: fit-content;
   min-width: fit-content;
   gap: 0.05em;
+  animation: fadeIn 0.4s ease-in-out forwards;
 }
 
 .button-group {
@@ -107,7 +108,12 @@ label {
   // float: right;
   color: #666666;
   cursor: pointer;
-  margin-left: 420px;
+  margin-left: 400px;
+
+  background: #f8f9fa;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
 }
 
 .payment-details {
@@ -246,7 +252,7 @@ label {
 }
 
 .card-container {
-  height: 680px;
+  height: 700px;
   transition: height 0.3s ease;
 
   flex: 0 0 auto; // Prevents shrinking
@@ -254,5 +260,16 @@ label {
 
   &.expanded {
     height: 800px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
