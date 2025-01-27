@@ -22,6 +22,7 @@ export class TabService {
 
   private timerSubject = new BehaviorSubject<string>('');
   public timer$ = this.timerSubject.asObservable();
+  public transactionReference = `TRX${Math.random().toString(36).substr(2, 9)}`;
 
   constructor(private http: HttpClient) {
     this.updateCountdown(); // Initialize the countdown

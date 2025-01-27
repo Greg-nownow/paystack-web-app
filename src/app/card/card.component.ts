@@ -36,7 +36,7 @@ export class CardComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private toastService: ToastService
   ) {
-    this.transactionReference = `TRX${Math.random().toString(36).substr(2, 9)}`;
+    // this.transactionReference = `TRX${Math.random().toString(36).substr(2, 9)}`;
     this.activeTab$ = this.tabService.activeTab$;
     this.initForm();
     
@@ -44,6 +44,7 @@ export class CardComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.transactionReference = this.tabService.transactionReference;
     this.startSessionTimer();
     this.initializeFormDefaults();
     

@@ -21,16 +21,17 @@ export class NewTransferComponent {
   beneficiaryAccountNumber: number = 0;
   beneficiaryAccountName: string = '';
   bankName: string = '';
+  transactionReference: string = '';
   private timerSubscription: Subscription | null = null;
 
   constructor(private router: Router,
-    private tabService: TabService, private fb: FormBuilder, private snackBar: MatSnackBar,
-    private toastService: ToastService) {
+    private tabService: TabService) {
 
     this.activeTab$ = this.tabService.activeTab$;
   }
   ngOnInit() {
     // Subscribe to the timer observable to get updates
+    this.transactionReference = this.tabService.transactionReference;
     this.fetchCurrentTransactionDetails()
     this.timerSubscription = this.tabService.timer$.subscribe(
       (time) => {
