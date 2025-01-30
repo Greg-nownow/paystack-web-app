@@ -76,14 +76,14 @@ export class CardComponent implements OnInit, OnDestroy {
 
   maskCardNumber(event: any) {
     let input = event.target.value.replace(/\D/g, '');
-    if (input.length > 16) {
-      input = input.substr(0, 16);
+    if (input.length > 20) {
+      input = input.substr(0, 20);
     }
     const masked = input.replace(/(\d{4})/g, '$1 ').trim();
     console.log(masked);
     event.target.value = masked;
     this.cardForm.patchValue({ cardNumber: input }, { emitEvent: false });
-    this.detectCardType(input);1
+    this.detectCardType(input);
   }
 
   formatExpiryDate(event: any) {
@@ -131,24 +131,41 @@ cardTransactionInitialize(){
     cardNo: formValue.cardNumber.replace(/\s/g, ''),
     amount: this.amount,
     cardPin: this.isPinRequired() ? formValue.cardPin : undefined,
-    cardExpiryDate: formValue.expirationDate
+    cardExpiryDate: formValue.expirationDate,
+    cardType: this.cardType,
+    expiryMonth: formValue.expirationDate.split('/')[0],
+    expiryYear: formValue.expirationDate.split('/')[1]
   };
   this.tabService.cardTransactionInitialize(transactionPayload).subscribe({ 
-    next: (data)=>{
-      console.log(data);
+    next: (res)=>{
+      console.log(res);
+      const { data, message } = res;
       if(data.status){
         // this.toastService.showSuccessToast(data?.message);
         // this.navigateToTransfer();
+        console.log(data.status, 'status')
+        switch(data.data.status){
+          case 'send_otp':
+            const extras = { state: { reference: data.data.reference } };
+            this.router.navigate(['/otp'], extras);
+            break;
+          case 'success':
+            this.toastService.showSuccessToast(message);
+            break;
+          default:
+            this.toastService.showSuccessToast(message);
+            break;
+        }
 
-        this.router.navigate(['/otp']);
+        
       }else{
         this.toastService.showErrorToast(data?.message);
       }
     }, 
     error: (err)=>{
       console.log(err);
-      this.router.navigate(['/otp']);
-      // this.toastService.showErrorToast(err?.message);
+      // this.router.navigate(['/otp']);
+      this.toastService.showErrorToast(err?.message);
     }
   })
 }
@@ -187,7 +204,7 @@ cardTransactionInitialize(){
     this.cardForm = this.fb.group({
       paymentReference: ['', [Validators.required, Validators.pattern('^[0-9]{8,12}$')]],
       fullName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]*$')]],
-      cardNumber: ['', [Validators.required, Validators.pattern('^[0-9]{16}$')]],
+      cardNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       expirationDate: ['', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/([0-9]{2})$')]],
       cvv: ['', [Validators.required, Validators.pattern('^[0-9]{3}$')]],
       cardPin: ['', [Validators.pattern('^[0-9]{4}')]]

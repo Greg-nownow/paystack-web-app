@@ -18,10 +18,11 @@ import { Subscription } from 'rxjs';
 export class NewTransferComponent {
   activeTab$: any;
   formattedTime: string = '';
-  beneficiaryAccountNumber: number = 0;
-  beneficiaryAccountName: string = '';
+  accountNumber: number = 0;
+  accountName: string = '';
   bankName: string = '';
   transactionReference: string = '';
+  isLoading: boolean = false;
   private timerSubscription: Subscription | null = null;
 
   constructor(private router: Router,
@@ -63,11 +64,16 @@ export class NewTransferComponent {
   }
 
   fetchCurrentTransactionDetails(){
-    this.tabService.getAdminDetails().subscribe((details) =>{
-        this.beneficiaryAccountNumber = details.data.beneficiaryAccountNumber;
-      this.beneficiaryAccountName = details.data.beneficiaryAccountName;
-      this.bankName = details.data.bankName;
-    })
+    this.isLoading = true;
+    this.tabService.generateApiKey().subscribe((res) => {
+      const { apiKey } = res.data;
+      this.tabService.getAdminDetails(apiKey).subscribe((details) => {
+        this.isLoading = false;
+        this.accountNumber = details.data.accountNumber;
+        this.accountName = details.data.accountName;
+        this.bankName = details.data.bankName;
+      });
+    });
   }
 
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
@@ -22,7 +22,8 @@ export class TabService {
 
   private timerSubject = new BehaviorSubject<string>('');
   public timer$ = this.timerSubject.asObservable();
-  public transactionReference = `TRX${Math.random().toString(36).substr(2, 9)}`;
+  public transactionReference = `txn_${Math.random().toString(36).substr(2, 9)}`;
+  // public transactionReference = `txn_qnx9sur83`;
 
   constructor(private http: HttpClient) {
     this.updateCountdown(); // Initialize the countdown
@@ -48,9 +49,20 @@ export class TabService {
     this.activeTabSubject.next(tab);
   }
 
-  getAdminDetails(): Observable<any> {
+  generateApiKey(): Observable<any> {
+    return this.http.post<any>('https://vwapi-dev.nownowpay.com.ng/api/v1/getApiKey', {
+      "clientId": "2336",
+      "clientKey": "Password!12345"
+    });
+  }
+
+  getAdminDetails(apiKey: any): Observable<any> {
     // https://9345-41-204-243-98.ngrok-free.app
-    return this.http.post<any>('https://9345-41-204-243-98.ngrok-free.app/api/v1/nowNowVirtualAccount', {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'api_Key': apiKey
+    });
+    return this.http.post<any>(`https://vwapi-dev.nownowpay.com.ng/api/v1/virtualWallet?`, {
       "paymentRef": "00000001",
       "amount": 10000,
       "customerRef": "2348022250132",
@@ -69,7 +81,7 @@ export class TabService {
       "country": "Nigeria",
       "productCode": "104",
       "requestIn": "2024-12-16"
-  })
+  }, { headers })
      .pipe(
         map(response => response),
         catchError(error => of({
@@ -119,15 +131,44 @@ export class TabService {
   }
 
   cardTransactionInitialize(payload: any){
-      const reqPayload = {
+      // const reqPayload = {
+      //   "transactionReference": payload.transactionReference,
+      //   "cvv": payload.cvv,
+      //   "cardNo": payload.cardNo,
+      //   "amount": payload.amount,
+      //   "cardPin": payload.cardPin,
+      //   "cardExpiryDate": payload.cardExpiryDate
+      // }
+
+      const transactionPayload = {
         "transactionReference": payload.transactionReference,
-        "cvv": payload.cvv,
-        "cardNo": payload.cardNo,
+      //  "firstName": "David",
+      //  "lastName": "chukwudile",
+        "email": "user@example.com",
         "amount": payload.amount,
-        "cardPin": payload.cardPin,
-        "cardExpiryDate": payload.cardExpiryDate
+        "cardType": payload.cardType,
+        // "cardType": 'visa',
+        "cvv": payload.cvv,
+        "number": payload.cardNo,
+        // "currency": "NGN",
+      //  "cardholderName": "Person Test",
+        "expiryMonth": payload.expiryMonth,
+        "expiryYear": payload.expiryYear,
+        "pin": payload.cardPin
       }
 
-      return this.http.post<any>('https://2897-105-112-198-83.ngrok-free.app/api/v1/transaction/initialize', reqPayload)
+      return this.http.post<any>('https://5a0d-197-255-60-110.ngrok-free.app/api/v1/card/charge', transactionPayload)
+  }
+
+  submitExtraCardInfo(payload: any){
+    const payloadExtraInfo = {
+      "type": payload.type,
+      "reference": payload.reference,
+      "info": payload.info
+    }
+    // https://2cfa-41-204-243-98.ngrok-free.app/api/v1/card/charge
+    // https://e10b-197-255-60-110.ngrok-free.app
+
+    return this.http.post<any>('https://5a0d-197-255-60-110.ngrok-free.app/api/v1/card/submitInfo', payloadExtraInfo)
   }
 }

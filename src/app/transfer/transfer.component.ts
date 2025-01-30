@@ -43,7 +43,7 @@ export class TransferComponent implements OnInit {
     }
   
     fetchAdminDetails() {
-      this.tabService.getAdminDetails().subscribe(details => {
+      this.tabService.getAdminDetails('').subscribe(details => {
         // const amount = Math.round(Math.random() * 10000);
         const amount = 9_000_000_000;
         const convenienceFee = 100;

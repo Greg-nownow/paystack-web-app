@@ -3,11 +3,11 @@
     <div class="button-group">
       <button class="button" [class.active]="(activeTab$ | async) === 'card'" (click)="navigateToCard()">Card</button>
     </div>
-    <div class="button-group">
+    <!-- <div class="button-group">
       <button class="button" [class.active]="(activeTab$ | async) === 'transfer'" (click)="navigateToTransfer()">Transfer</button>
-    </div>
+    </div> -->
     <div class="button-group">
-      <button class="button" [class.active]="(activeTab$ | async) === 'newTransfer'" (click)="navigateToNewTransfer()">New Transfer</button>
+      <button class="button" [class.active]="(activeTab$ | async) === 'newTransfer'" (click)="navigateToNewTransfer()">Transfer</button>
     </div>
   </div>
   <div class="card card-container" style="min-width: 600px; padding: 20px;" [ngClass]="{'expanded': isPinRequired()}">

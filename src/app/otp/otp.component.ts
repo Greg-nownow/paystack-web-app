@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TabService } from '../services/tab.service';
+import { ToastService } from '../shared/services/toast.service';
 
 @Component({
   selector: 'app-otp',
@@ -16,15 +18,19 @@ export class OtpComponent {
   timer: string = ''; 
   canResend: boolean = false;
   otpDigits: string[] = ['', '', '', '', '', ''];
+  reference!: string;
   private timerInterval: any;
   private countdownTime: number = 30; 
 
-  constructor(private router: Router){
+  constructor(private router: Router, private tabService: TabService,private toastService: ToastService){
 
   }
   
   ngOnInit() {
     this.startTimer();
+    const state = window.history.state;
+    this.reference = state.reference; // Retrieve passed data
+    console.log('Reference:', this.reference);
   }
   startTimer() {
     this.canResend = false;
@@ -51,9 +57,27 @@ export class OtpComponent {
 
   onSubmit() {
     if (this.isOtpComplete()) {
-      this.otp = this.otpDigits.join('');
-      this.otpSubmitted.emit(this.otp);
-      this.router.navigate(['/']);
+      const payload = {
+        "type": 'otp',
+        "reference": this.reference,
+        "info": this.otpDigits.join('')
+      }
+
+      this.tabService.submitExtraCardInfo(payload).subscribe({
+          next: (res) =>{
+            // this.res.data.data.status
+            console.log(res)
+            if(res.data.data.status == 'success'){
+                this.toastService.showSuccessToast('OTP validation successful');
+            }else{
+              this.toastService.showErrorToast(res.data?.message);
+            }
+          },
+          error:(err)=>{
+            console.error(err)
+            this.toastService.showErrorToast(err?.message);
+          }
+      })
     }
   }
 
