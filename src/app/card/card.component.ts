@@ -20,6 +20,7 @@ export class CardComponent implements OnInit, OnDestroy {
   cardTypeIcon: string = 'assets/icons/credit-card.png';
   amount: number = 5000.00;
   transactionReference: string = '';
+  isLoading: boolean = false;
   private readonly SESSION_TIMEOUT = 600000; // 10 minutes
   private sessionTimer: any;
   private readonly CARD_PATTERNS = {
@@ -136,9 +137,11 @@ cardTransactionInitialize(){
     expiryMonth: formValue.expirationDate.split('/')[0],
     expiryYear: formValue.expirationDate.split('/')[1]
   };
+  this.isLoading = true;
   this.tabService.cardTransactionInitialize(transactionPayload).subscribe({ 
     next: (res)=>{
       console.log(res);
+      this.isLoading = false;
       const { data, message } = res;
       if(data.status){
         // this.toastService.showSuccessToast(data?.message);
@@ -164,8 +167,9 @@ cardTransactionInitialize(){
     }, 
     error: (err)=>{
       console.log(err);
+      this.isLoading = false;
       // this.router.navigate(['/otp']);
-      this.toastService.showErrorToast(err?.message);
+      this.toastService.showErrorToast(err?.error?.message);
     }
   })
 }

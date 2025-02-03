@@ -157,7 +157,7 @@ export class TabService {
         "pin": payload.cardPin
       }
 
-      return this.http.post<any>('https://5a0d-197-255-60-110.ngrok-free.app/api/v1/card/charge', transactionPayload)
+      return this.http.post<any>('https://pg-dev.nownowpay.com.ng/api/v1/card/charge', transactionPayload)
   }
 
   submitExtraCardInfo(payload: any){
@@ -169,6 +169,6 @@ export class TabService {
     // https://2cfa-41-204-243-98.ngrok-free.app/api/v1/card/charge
     // https://e10b-197-255-60-110.ngrok-free.app
 
-    return this.http.post<any>('https://5a0d-197-255-60-110.ngrok-free.app/api/v1/card/submitInfo', payloadExtraInfo)
+    return this.http.post<any>('https://pg-dev.nownowpay.com.ng/api/v1/card/submitInfo', payloadExtraInfo)
   }
 }

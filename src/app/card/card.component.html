@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" class="loading-spinner">
+  <div class="spinner"></div>
+</div>
 <div class="container">
   <div class="menu card-container" [ngClass]="{'expanded': isPinRequired()}">
     <div class="button-group">
@@ -64,6 +67,7 @@
                    id="expirationDate"
                    autocomplete="off"
                    (input)="formatExpiryDate($event)"
+                   placeholder="mm/yy"
                    [class.invalid]="cardForm.get('expirationDate')?.invalid && cardForm.get('expirationDate')?.touched"/>
           </div>
           
@@ -75,6 +79,7 @@
                      id="cvv"
                      maxlength="3"
                      autocomplete="off"
+                     placeholder="***"
                      [class.invalid]="cardForm.get('cvv')?.invalid && cardForm.get('cvv')?.touched"/>
               <img src="assets/icons/info.png" class="input-icon-cvv" alt="info icon"/>
             </div>

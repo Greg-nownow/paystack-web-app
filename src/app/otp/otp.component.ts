@@ -19,6 +19,7 @@ export class OtpComponent {
   canResend: boolean = false;
   otpDigits: string[] = ['', '', '', '', '', ''];
   reference!: string;
+  isLoading: boolean = false;
   private timerInterval: any;
   private countdownTime: number = 30; 
 
@@ -62,20 +63,23 @@ export class OtpComponent {
         "reference": this.reference,
         "info": this.otpDigits.join('')
       }
+      this.isLoading = true;
 
       this.tabService.submitExtraCardInfo(payload).subscribe({
           next: (res) =>{
             // this.res.data.data.status
             console.log(res)
+            this.isLoading = false;
             if(res.data.data.status == 'success'){
-                this.toastService.showSuccessToast('OTP validation successful');
+                this.toastService.showSuccessToast('Transaction successful');
             }else{
               this.toastService.showErrorToast(res.data?.message);
             }
           },
           error:(err)=>{
             console.error(err)
-            this.toastService.showErrorToast(err?.message);
+            this.isLoading = false;
+            this.toastService.showErrorToast(err?.error?.message);
           }
       })
     }

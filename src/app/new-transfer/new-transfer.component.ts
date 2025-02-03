@@ -26,7 +26,7 @@ export class NewTransferComponent {
   private timerSubscription: Subscription | null = null;
 
   constructor(private router: Router,
-    private tabService: TabService) {
+    private tabService: TabService, private toastService: ToastService) {
 
     this.activeTab$ = this.tabService.activeTab$;
   }
@@ -74,6 +74,9 @@ export class NewTransferComponent {
         this.bankName = details.data.bankName;
       });
     });
+  }
+  submitTransfer(){
+    this.toastService.showSuccessToast('Transfer Successful');
   }
 
 }
