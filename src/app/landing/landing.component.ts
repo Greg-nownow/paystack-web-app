@@ -7,30 +7,31 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-      <div class="card">
+     <div class="container">
+         <div class="card">
         <div class="logo">
           <img src="assets/icons/contec-logo.png" alt="NowNow Logo">
         </div>
         <h1>Welcome to Contec Global Payment System</h1>
         <button (click)="navigateToPayment()" class="pay-button">Pay Bills</button>
       </div>
+     </div>
   `,
   styles: [`
     .container {
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      background-color: #f5f5f5;
+      background-color: #f5a012;
+      padding: .5rem;
     }
+     
     .card {
       background: white;
-      padding: 2rem;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       text-align: center;
       max-width: 500px;
-      width: 90%;
     }
     .logo {
       margin-bottom: 2rem;

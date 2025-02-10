@@ -7,11 +7,13 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { NavbarComponent } from '../shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-new-transfer',
+  standalone: true,
   // imports: [],
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, MatSnackBarModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, MatSnackBarModule, NavbarComponent],
   templateUrl: './new-transfer.component.html',
   styleUrl: './new-transfer.component.scss'
 })

@@ -1,0 +1,24 @@
+.button-group {
+  display: flex;
+  justify-content: center;
+  width: 160px;
+  margin-left: 0.5rem;
+  
+  .button {
+    padding: 0.2em 1.5rem;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    background-color: #f0f0f0;
+    
+    &:hover {
+      background-color: #fff;
+    }
+
+    &.active {
+      background-color: #eaa64d;
+    }
+  }
+}

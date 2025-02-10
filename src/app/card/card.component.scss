@@ -9,8 +9,10 @@
   display: flex;
   min-height: fit-content;
   min-width: fit-content;
-  gap: 0.05em;
+  gap: .5rem;
+  padding: .5rem;
   animation: fadeIn 0.4s ease-in-out forwards;
+  background-color: #f5a012;
 }
 
 .button-group {

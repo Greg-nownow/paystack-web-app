@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { TabService } from '../services/tab.service';
 import { ToastService } from '../shared/services/toast.service';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../shared/navbar/navbar.component';
 // import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
   standalone: true
 })
 export class CardComponent implements OnInit, OnDestroy {

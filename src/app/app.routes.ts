@@ -7,9 +7,9 @@ import { OtpComponent } from './otp/otp.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
-    { path: 'transfer', component: TransferComponent },
+    { path: 'old-transfer', component: TransferComponent },
   { path: 'card', component: CardComponent },
-  { path: 'new-transfer', component: NewTransferComponent },
+  { path: 'transfer', component: NewTransferComponent },
   { path: 'otp', component: OtpComponent },
   // { path: '', redirectTo: '/transfer', pathMatch: 'full' },
 ];
